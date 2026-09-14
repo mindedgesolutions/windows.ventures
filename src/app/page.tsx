@@ -3,16 +3,16 @@ import {
   AboutKidsPlay,
   ClientFeedback,
   HeroSlider,
-  SectionWrapper,
   ServicesSection,
   WhyUsSection,
-} from '@/components';
+} from '@/app';
+import { SectionWrapper } from '@/components';
 
 const Home = () => {
   return (
     <>
       <HeroSlider />
-      <SectionWrapper className="flex flex-col mt-24 gap-28 min-h-800">
+      <SectionWrapper className="flex flex-col mt-24 gap-28">
         <AboutCyberSolution />
         <WhyUsSection />
         <ServicesSection />

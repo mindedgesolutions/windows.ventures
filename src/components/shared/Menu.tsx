@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,6 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { menus } from '@/constants/menu';
 import { cn } from '@/lib/utils';
 
 type WebsiteMenuProp = {
@@ -25,135 +27,83 @@ export default function Menu({ scrolled }: WebsiteMenuProp) {
     : {
         item: 'text-card hover:bg-card/20',
       };
+  const pathname = usePathname();
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   return (
     <NavigationMenu className="font-inter">
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuLink
-            className={cn(
-              navigationMenuTriggerStyle(),
-              'px-4 hover:text-primary-foreground tracking-wider',
-              scrolled ? 'text-primary' : 'text-card',
-            )}
-            render={<Link href="/">Home</Link>}
-          />
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink
-            className={cn(
-              navigationMenuTriggerStyle(),
-              'px-4 hover:text-primary-foreground tracking-wider',
-              scrolled ? 'text-primary' : 'text-card',
-            )}
-            render={<Link href="/about">About</Link>}
-          />
-        </NavigationMenuItem>
+        {menus.map((menu) => {
+          const isActive = menu.submenus?.length
+            ? pathname.startsWith(`/${menu.pathname}`)
+            : pathname === menu.link;
+          const isHovered = hoveredMenu === menu.id;
 
-        <NavigationMenuItem>
-          <NavigationMenuTrigger
-            className={`px-4 hover:text-primary-foreground tracking-wider ${scrolled ? 'text-primary data-open:focus:text-primary' : 'text-card data-open:focus:text-card'}`}
-          >
-            Services
-          </NavigationMenuTrigger>
-          <NavigationMenuContent scrolled={scrolled} className="p-3">
-            <ul className="w-96 font-inter">
-              <ListItem
-                className={cn(
-                  'block rounded-md tracking-wider transition-colors py-2',
-                  submenuClasses.item,
-                )}
-                href="/services/career-readiness"
-                title="Career Readiness"
-              >
-                <span
-                  className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
-                >
-                  Re-usable components built with Tailwind CSS.
-                </span>
-              </ListItem>
-              <ListItem
-                className={cn(
-                  'block rounded-md tracking-wider transition-colors py-2',
-                  submenuClasses.item,
-                )}
-                href="/services/import-export"
-                title="Import & Export"
-              >
-                <span
-                  className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
-                >
-                  Re-usable components built with Tailwind CSS.
-                </span>
-              </ListItem>
-              <ListItem
-                className={cn(
-                  'block rounded-md tracking-wider transition-colors py-2',
-                  submenuClasses.item,
-                )}
-                href="/services/web-development"
-                title="Web Development"
-              >
-                <span
-                  className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
-                >
-                  Re-usable components built with Tailwind CSS.
-                </span>
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger
-            className={`px-4 hover:text-primary-foreground tracking-wider ${scrolled ? 'text-primary data-open:focus:text-primary' : 'text-card data-open:focus:text-card'}`}
-          >
-            Products
-          </NavigationMenuTrigger>
-          <NavigationMenuContent scrolled={scrolled} className="p-3">
-            <ul className="w-96 font-inter">
-              <ListItem
-                className={cn(
-                  'block rounded-md tracking-wider transition-colors py-2',
-                  submenuClasses.item,
-                )}
-                href="/products/cyber-solution"
-                title="Cyber Solutions"
-              >
-                <span
-                  className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
-                >
-                  Re-usable components built with Tailwind CSS.
-                </span>
-              </ListItem>
-              <ListItem
-                className={cn(
-                  'block rounded-md tracking-wider transition-colors py-2',
-                  submenuClasses.item,
-                )}
-                href="/products/kids-play"
-                title="Kids Play"
-              >
-                <span
-                  className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
-                >
-                  Re-usable components built with Tailwind CSS.
-                </span>
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuLink
-            className={cn(
-              navigationMenuTriggerStyle(),
-              'px-4 hover:text-primary-foreground tracking-wider',
-              scrolled ? 'text-primary' : 'text-card',
-            )}
-            render={<Link href="/contact-us">Contact</Link>}
-          />
-        </NavigationMenuItem>
+          return (
+            <NavigationMenuItem
+              key={menu.id}
+              className={`relative flex justify-center items-center group`}
+              onMouseEnter={() => setHoveredMenu(menu.id)}
+              onMouseLeave={() => setHoveredMenu(null)}
+            >
+              {menu.submenus && menu.submenus?.length > 0 ? (
+                <>
+                  <NavigationMenuTrigger
+                    className={`px-4 hover:text-primary-foreground tracking-wider ${scrolled ? 'text-primary data-open:focus:text-primary' : 'text-card data-open:focus:text-card'}`}
+                  >
+                    {menu.title}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent scrolled={scrolled} className="p-3">
+                    <ul className="w-96 font-inter">
+                      {menu.submenus.map((submenu) => (
+                        <ListItem
+                          key={submenu.id}
+                          className={cn(
+                            'block rounded-md tracking-wider transition-colors py-2',
+                            submenuClasses.item,
+                          )}
+                          href={submenu.link}
+                          title={submenu.title}
+                        >
+                          {submenu.msg && (
+                            <span
+                              className={`text-xs ${scrolled ? 'text-primary/50' : 'text-muted/50'}`}
+                            >
+                              {submenu.msg}
+                            </span>
+                          )}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                  <span
+                    className={cn(
+                      'absolute -bottom-4 h-0.5 w-6 origin-center transform bg-card transition-transform duration-300 ease-out',
+                      isActive || isHovered ? 'scale-x-100' : `scale-x-0`,
+                    )}
+                  />
+                </>
+              ) : (
+                <>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'px-4 hover:text-primary-foreground tracking-wider',
+                      scrolled ? 'text-primary' : 'text-card',
+                    )}
+                    render={<Link href={menu.link}>{menu.title}</Link>}
+                  />
+                  <span
+                    className={cn(
+                      'absolute -bottom-4 h-0.5 w-6 origin-center transform bg-card transition-transform duration-300 ease-out',
+                      isActive || isHovered ? 'scale-x-100' : `scale-x-0`,
+                    )}
+                  />
+                </>
+              )}
+            </NavigationMenuItem>
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );

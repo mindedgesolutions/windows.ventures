@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Header, HeroSection } from '@/components';
+import { HeroSection } from '@/app';
+import { Header } from '@/components';
 
 const HeroSlider = () => {
   return (

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { TextWrapper } from '@/components';
 import { heroImages } from '@/constants/lookup';
-import TypewriterText from '../smoothui/typewriter-text';
+import TypewriterText from '../../components/smoothui/typewriter-text';
 
 const firstText = 'Lorem ipsum dolor sit';
 const firstSpeed = 50;

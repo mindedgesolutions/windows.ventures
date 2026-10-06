@@ -49,16 +49,18 @@ const Header = () => {
             <div className="flex items-center gap-1.5 text-card">
               <webIcons.location size={14} />
               <span className="text-xs tracking-wider">
-                123, Lorem ipsum dolor sit amet
+                RDB Boulevard, Salt Lake, Kolkata
               </span>
             </div>
             <div className="flex items-center gap-1.5 text-card">
               <webIcons.phone size={14} />
-              <span className="text-xs tracking-wider">+91-1234567890</span>
+              <span className="text-xs tracking-wider">+91-7890 339 155</span>
             </div>
             <div className="flex items-center gap-1.5 text-card">
               <webIcons.email size={14} />
-              <span className="text-xs tracking-widest">test@test.com</span>
+              <span className="text-xs tracking-widest">
+                contact@winvens.net
+              </span>
             </div>
           </div>
           {/* right side */}

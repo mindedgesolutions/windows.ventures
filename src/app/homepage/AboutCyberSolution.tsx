@@ -24,10 +24,12 @@ const AboutCyberSolution = () => {
             nihil!"
         />
         <TextWrapper>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
-          consequatur asperiores unde maxime perferendis ipsum aliquid facilis
-          vero quasi pariatur, accusamus, corrupti, soluta impedit voluptatem
-          quaerat. Illo cupiditate eos nam?
+          Windows Ventures and Mentza have joined forces to bridge the gap
+          between innate individual potential and high-performance career
+          success. By combining deep self-awareness, strategic timing, and
+          Mentza’s AI-driven career readiness framework, we equip students and
+          professionals with the tools they need to thrive in today’s
+          competitive landscape
         </TextWrapper>
         <div className="grid grid-cols-2 gap-x-16 gap-y-4">
           {highlights.map((highlight) => (
@@ -85,6 +87,8 @@ const AboutCyberSolution = () => {
           alt="Cyber solutions"
           fill
           className="object-cover"
+          sizes="100vw"
+          loading="eager"
         />
       </motion.div>
     </section>

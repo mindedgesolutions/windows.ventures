@@ -63,6 +63,7 @@ const WhyUsSection = () => {
             alt="banner-2"
             fill
             className="object-cover"
+            sizes="100vw"
           />
         </motion.section>
         <motion.section

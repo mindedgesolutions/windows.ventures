@@ -8,7 +8,7 @@ import { TextWrapper } from '@/components';
 import { heroImages } from '@/constants/lookup';
 import TypewriterText from '../../components/smoothui/typewriter-text';
 
-const firstText = 'Lorem ipsum dolor sit';
+const firstText = 'Unlock Your True Potential';
 const firstSpeed = 50;
 
 const HeroSection = () => {
@@ -69,8 +69,9 @@ const HeroSection = () => {
                   speed={50}
                   className="font-space-mono uppercase"
                 >
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Magnam praesentium sed eaque neque
+                  Partnering with Mentza to bring you a transformative Career
+                  Readiness Program that merges cosmic clarity with cutting-edge
+                  professional execution
                 </TypewriterText>
               </TextWrapper>
             )}
